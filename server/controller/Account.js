@@ -83,7 +83,7 @@ const sendOtp = async (req,res) =>{
 
 
     if(!acc){
-        res.json("account is not found")
+        res.json({error:"account is not found"})
     }
 
     else{
@@ -174,4 +174,15 @@ const accDetails = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch account details' });
     }
 };
-module.exports = {addAcount,accDetails,sendMoney,sendOtp}
+
+const clearOtp = async(req,res) =>{
+
+    await Otps.destroy({
+        where: { userid: req.user.id}
+    });
+
+    res.json("otps delete success")
+
+}
+
+module.exports = {addAcount,accDetails,sendMoney,sendOtp,clearOtp}

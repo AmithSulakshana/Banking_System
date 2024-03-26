@@ -68,14 +68,14 @@ const login = async (req,res) =>{
         })
     
         if(!user){
-            res.json("user does not exist")
+            res.json({error:"user does not exist"})
         }
     
         else{
             const match =await bcrypt.compare(password,user.password);
     
            if(!match){
-            res.json("user name and password does not match")
+            res.json({error:"user name and password does not match"})
             }
     
             else{
@@ -92,9 +92,14 @@ const login = async (req,res) =>{
     
 }
 
+const auth = async (req,res) =>{
+    res.json(req.user)
+}
+
 
 module.exports = {
     getAll,
     addUser,
-    login
+    login,
+    auth
 }
