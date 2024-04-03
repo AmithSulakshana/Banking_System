@@ -10,18 +10,33 @@ const UserPage = () => {
     const handleTransfer = () =>{
         navigate("/transfer")
     }
+
+    const handleSummery = () =>{
+      navigate("/summery")
+    }
     
   return (
-    <div className='p-3 flex gap-5'>
+    <div className='p-3 flex flex-wrap justify-center gap-5'>
 
       <Card heder="Account Summery"
         cardImg = {bankImg}
+        onclick = {handleSummery}
       />
 
       <Card
         heder= "Fund Transfer"
         cardImg = {bankImg2}
         onclick ={handleTransfer}
+      />
+
+      <Card
+        heder= "Mobile Payment"
+        cardImg = {bankImg2}
+      />
+
+      <Card
+        heder= "Bill Payment"
+        cardImg = {bankImg2}
       />
     </div>
   )

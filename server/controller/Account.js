@@ -148,18 +148,13 @@ const sendOtp = async (req,res) =>{
                 res.status(200).json({ success: true, message: "Email sent successfully" });
             }
         });
-
-
-    }
-   
-
+    }   
 }
-
 
 const accDetails = async (req, res) => {
     try {
-        const userId = req.params.userId;
-        const acc = await Accounts.findOne({
+        const userId = req.user.id;
+        const acc = await Accounts.findAll({
             where: { UserId: userId },
             include: [Users]
         });
@@ -175,6 +170,20 @@ const accDetails = async (req, res) => {
     }
 };
 
+const getAccNo =async (req,res) =>{
+
+    const userId = req.user.id;
+    const acc = await Accounts.findAll({
+        where:{UserId: userId}
+    })
+    if(!acc){
+        res.json("account not found")
+    }
+
+    res.json(acc)
+
+}
+
 const clearOtp = async(req,res) =>{
 
     await Otps.destroy({
@@ -185,4 +194,4 @@ const clearOtp = async(req,res) =>{
 
 }
 
-module.exports = {addAcount,accDetails,sendMoney,sendOtp,clearOtp}
+module.exports = {addAcount,accDetails,sendMoney,sendOtp,clearOtp,getAccNo}
