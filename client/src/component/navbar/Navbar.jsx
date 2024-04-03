@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { logingFail } from '../../store/reducers/UserSlice';
+import { FaHome } from "react-icons/fa";
 
 const Navbar = () => {
 
@@ -32,10 +33,15 @@ const Navbar = () => {
 
     }
 
+    const handelHome = () =>{
+        navigate("/")
+    }
+
   return (
     <div className='flex justify-between h-[60px] pr-3 bg-gradient-to-r from-yellow-500 to-yellow-100 shadow-md'>
         <div className='flex items-center'>
             <Drawer/>
+            <FaHome className='w-[22px] h-[22px] cursor-pointer lg:ml-2' onClick={handelHome}/>
         </div>
 
         <div className='flex items-center gap-2'>

@@ -50,7 +50,7 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div>
+    <div className='lg:hidden'>
       <Button onClick={toggleDrawer(true)}><IoIosMenu className='w-[25px] h-[25px] text-black'/></Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {DrawerList}

@@ -1,9 +1,14 @@
 import React from 'react'
+import Swiperacaro from '../../component/swiper/Swiperacaro'
+import SubNav from '../../component/navbar/SubNav'
+import Submenu from '../../component/submenu/Submenu'
 
 const Home = () => {
   return (
-    <div>
-        <h1>this is home page</h1>
+    <div className='p-2'>
+        <SubNav/>
+        <Swiperacaro/>
+        <Submenu/>
     </div>
   )
 }

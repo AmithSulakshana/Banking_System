@@ -9,6 +9,8 @@ import { logingFail, logingSuccess } from "./store/reducers/UserSlice"
 import Navbar from "./component/navbar/Navbar"
 import UserPage from "./pages/userPage/UserPage"
 import Otp from "./pages/otp/Otp"
+import Summery from "./pages/accountSummery/Summery"
+import Footer from "./component/footer/Footer"
 
 function App() {
 
@@ -38,7 +40,9 @@ function App() {
             <Route path="/login" element={<Loging/>}/>
             <Route path="/userpage" element={<UserPage/>}/>
             <Route path="/otp" element={<Otp/>} />
+            <Route path="/summery" element={<Summery/>}/>
        </Routes>
+       <Footer/>
 
     </BrowserRouter>  
   )
