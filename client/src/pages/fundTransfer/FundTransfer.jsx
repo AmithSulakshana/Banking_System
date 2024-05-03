@@ -9,7 +9,6 @@ import * as Yup from 'yup';
 
 const FundTransfer = () => {
   
-  //const accNum = "037562388"
   const[accNum,setAccNum] = useState()
   const dispatch = useDispatch()
   const navigate = useNavigate()

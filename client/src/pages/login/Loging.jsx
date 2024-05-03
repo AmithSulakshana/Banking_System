@@ -26,18 +26,21 @@ const Loging = () => {
     }
    
   return (
-    <div className='pt-[20px] pl-3 '>
-        <div>
-            <label>User Name: </label>
-            <input value={userName} type='text' onChange={(e)=>setUserName(e.target.value)}/>
+    <div className='w-[450px] min-h-[450px] rounded-2xl shadow-lg p-2 flex flex-col gap-2 border-[1px] border-slate-400 m-5'>
+        <div className='bg-gradient-to-r from-orange-500 to-yellow-100 w-full p-2 h-[40px] flex items-center text-[18px] font-medium'>
+               Loging
+        </div>
+        <div className='m-1'>
+            <label className='font-semibold'>User Name: </label>
+            <input className='pl-1 outline-none' value={userName} type='text' onChange={(e)=>setUserName(e.target.value)}/>
         </div>
         
-        <div>
-            <label>Password: </label>
-            <input value={password} type='password' onChange={(e)=>setPassword(e.target.value)}/>
+        <div className='m-1'>
+            <label className='font-semibold'>Password: </label>
+            <input  className='pl-1 outline-none' value={password} type='password' onChange={(e)=>setPassword(e.target.value)}/>
         </div>
 
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin} className='w-[120px] h-[45px] rounded-3xl font-semibold bg-orange-400 mx-auto hover:bg-orange-500'>Login</button>
       
     </div>
   )

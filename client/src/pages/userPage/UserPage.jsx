@@ -14,9 +14,17 @@ const UserPage = () => {
     const handleSummery = () =>{
       navigate("/summery")
     }
+
+    const handleQr = () =>{
+      navigate("/qr")
+    }
+
+    const handleQrReceived = () =>{
+      navigate("/qreceive")
+    }
     
   return (
-    <div className='p-3 flex flex-wrap justify-center gap-5'>
+    <div className='p-3 flex flex-wrap gap-5'>
 
       <Card heder="Account Summery"
         cardImg = {bankImg}
@@ -37,6 +45,18 @@ const UserPage = () => {
       <Card
         heder= "Bill Payment"
         cardImg = {bankImg2}
+      />
+
+      <Card
+        heder= "Fund QR"
+        cardImg = {bankImg2}
+        onclick = {handleQr}
+      />
+
+      <Card
+        heder= "Received Fund"
+        cardImg = {bankImg2}
+        onclick = {handleQrReceived}
       />
     </div>
   )
