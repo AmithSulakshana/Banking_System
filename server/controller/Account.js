@@ -1,5 +1,7 @@
-const {Accounts,Users,Otps} = require("../models");
+const {Accounts,Users,Otps,Qrs} = require("../models");
 const nodemailer = require('nodemailer');
+const qrCode = require('qrcode');
+const { where } = require("sequelize");
 
 
 const addAcount = async (req, res) => {
@@ -194,4 +196,67 @@ const clearOtp = async(req,res) =>{
 
 }
 
-module.exports = {addAcount,accDetails,sendMoney,sendOtp,clearOtp,getAccNo}
+const qr = async(req,res) =>{
+  const {url,accNum} = req.body;
+  const qrId = Math.floor(1000 + Math.random() * 9000).toString();
+
+  const userAcc = await Accounts.findOne({
+    where:{accountNumber:accNum} 
+  })
+
+  if(!url){
+    res.json("empty data")
+  }
+
+  if(!userAcc){
+    res.json("invalid Account num")
+  }
+
+  const newBalance = userAcc.balance - url
+  userAcc.balance = newBalance
+  await userAcc.save();
+
+  await Qrs.create({qrcode:qrId,userid:req.user.id});
+
+  qrCode.toDataURL(url+"/"+qrId,function(err,qrUrl){
+    res.json({url:qrUrl,id:qrId})
+  })
+} 
+
+const qrReceive = async (req, res) => {
+    try {
+        const { amount,qrCode } = req.body;
+
+        const userAcc = await Accounts.findOne({
+            where: { UserId: req.user.id }
+        });
+
+        if (!userAcc) {
+            return res.status(404).json({ error: 'User account not found' });
+        }
+         
+        const code = await Qrs.findOne({
+            where:{qrcode:qrCode}
+        })
+        
+        if(code){
+            const newBalance = userAcc.balance + amount;
+            userAcc.balance = newBalance;
+            await userAcc.save();
+            await Qrs.destroy({
+                where:{qrcode:qrCode}
+            })
+            res.json({ newBalance,message:`Your New Balance is ${newBalance}` });
+        }
+
+        else{
+            res.json({message:"Invalid QR"})
+        }
+        
+    } catch (error) {
+        console.error('Error in qrReceive:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+module.exports = {addAcount,accDetails,sendMoney,sendOtp,clearOtp,getAccNo,qr,qrReceive} 

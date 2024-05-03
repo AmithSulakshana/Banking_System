@@ -11,10 +11,14 @@ import UserPage from "./pages/userPage/UserPage"
 import Otp from "./pages/otp/Otp"
 import Summery from "./pages/accountSummery/Summery"
 import Footer from "./component/footer/Footer"
+import FundQR from "./pages/fundQr/FundQR"
+import ReceivedQr from "./pages/fundQr/ReceivedQr"
+import Loader from "./component/loader/Loader"
 
 function App() {
 
   const dispatch = useDispatch()
+  //const [isLoading, setIsLoading] = useState(true);
 
     useEffect(()=>{
         axios.get("http://localhost:3001/user/auth",{headers:{
@@ -27,12 +31,14 @@ function App() {
 
           else{
             dispatch(logingSuccess({userName:res.data.userName,id:res.data.id}))
+            
           }
         })
     },[])
- 
+
   return (
-    <BrowserRouter>
+    
+      <BrowserRouter>
        <Navbar/>
        <Routes>
             <Route path="/" element={<Home/>}></Route>
@@ -41,11 +47,15 @@ function App() {
             <Route path="/userpage" element={<UserPage/>}/>
             <Route path="/otp" element={<Otp/>} />
             <Route path="/summery" element={<Summery/>}/>
+            <Route path="/qr" element={<FundQR/>}/>
+            <Route path="/qreceive" element={<ReceivedQr/>}/>
        </Routes>
        <Footer/>
 
     </BrowserRouter>  
-  )
+
+    )
+    
 }
 
 export default App

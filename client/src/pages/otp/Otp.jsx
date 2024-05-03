@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Otp() {
     const[otp,setOtp] = useState('')
     const account =  useSelector(store=>store.paySlice)
+    const navigate = useNavigate()
 
     const handleOtp = () => {
           const money = parseFloat(account.amount)
@@ -17,13 +19,20 @@ function Otp() {
                 }
             }
         ).then((res) => {
-            alert(res.data);
-            axios.delete("http://localhost:3001/account/clearotp",{headers:{
+            
+            if(res.data==="otp is invalid"){
+                alert(res.data);
+            }
+            else{
+                alert(res.data);
+                axios.delete("http://localhost:3001/account/clearotp",{headers:{
                 accessToken: localStorage.getItem("accessToken")
 
             }}).then((res)=>{
-                console.log(res.data)
+                navigate('/userpage')
             })
+            }
+            
         }).catch(error => {
             console.error("Error:", error);
         });
